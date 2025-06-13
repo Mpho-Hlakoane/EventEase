@@ -1,36 +1,41 @@
 @model EventEase.Models.Event
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Event Details";
 }
 
-<h1>Details</h1>
+<h1>Event Details</h1>
 
 <div>
-    <h4>Event</h4>
+    <h4>@Model.Name</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Name)</dt>
+        <dd class="col-sm-10">@Model.Name</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.StartDate)</dt>
+        <dd class="col-sm-10">@Model.StartDate.ToString("f")</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.EndDate)</dt>
+        <dd class="col-sm-10">@Model.EndDate.ToString("f")</dd>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Description))
+        {
+            <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Description)</dt>
+            <dd class="col-sm-10">@Model.Description</dd>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+        {
+            <dt class="col-sm-2">Image</dt>
+            <dd class="col-sm-10">
+                <img src="@Model.ImageUrl" alt="Event Image" class="img-thumbnail" style="max-width:300px;" />
+            </dd>
+        }
     </dl>
 </div>
+
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>

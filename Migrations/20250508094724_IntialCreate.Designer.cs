@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EventEase.Migrations
 {
-    [DbContext(typeof(EventEaseDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250508094724_IntialCreate")]
     partial class IntialCreate
     {

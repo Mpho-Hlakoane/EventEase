@@ -1,4 +1,5 @@
 using EventEase.Data;
+using EventEase.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,8 +7,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<EventEaseDbContext>(options =>
-     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+     sqlServerOptions => sqlServerOptions.EnableRetryOnFailure()));
+
+builder.Services.AddSingleton(sp =>
+{
+    var configuration = sp.GetRequiredService<IConfiguration>();
+    var connectionString = configuration.GetValue<string>("AzureBlobStorage:ConnectionString");
+    var containerName = configuration.GetValue<string>("AzureBlobStorage:ContainerName");
+    return new BlobService(connectionString, containerName);
+});
 
 var app = builder.Build();
 

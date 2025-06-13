@@ -4,6 +4,7 @@ using EventEase.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventEase.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class EventEaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250613002917_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,54 +60,6 @@ namespace EventEase.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("EventEase.Models.BookingDetailsView", b =>
-                {
-                    b.Property<int>("BookingId")
-                        .HasColumnType("int")
-                        .HasColumnName("BookingId");
-
-                    b.Property<string>("BookingReference")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("EventEndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EventName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("EventStartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("VenueCapacity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VenueId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("VenueLocation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VenueName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("BookingDetailsView", (string)null);
-                });
-
             modelBuilder.Entity("EventEase.Models.Event", b =>
                 {
                     b.Property<int>("Id")
@@ -121,7 +76,6 @@ namespace EventEase.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -149,7 +103,6 @@ namespace EventEase.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
